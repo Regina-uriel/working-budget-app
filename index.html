@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budget App</title>
+</head>
+<body>
+    <style>
+        .container {
+            width: 300px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .form-group {
+            margin-bottom: 10px;
+        }
+        .form-group label {
+            display: block;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        .form-group button {
+            width: 100%;
+            padding: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .budget-list {
+            margin-top: 20px;
+        }
+        .budget-list li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Budget App</h2>
+        <div class="form-group">
+            <label for="income">Income:</label>
+            <input type="number" id="income">
+        </div>
+        <div class="form-group">
+            <label for="expense">Expense:</label>
+            <input type="number" id="expense">
+        </div>
+        <div class="form-group">
+            <button onclick="addExpense()">Add Expense</button>
+        </div>
+        <div class="budget-list">
+            <h3>Budget List:</h3>
+            <ul id="budgetList"></ul>
+        </div>
+        <div class="form-group">
+            <label for="totalBudget">Total Budget:</label>
+            <input type="text" id="totalBudget" readonly>
+        </div>
+    </div>
+
+    <script>
+        var expenses = [];
+
+        function addExpense() {
+            var expense = parseFloat(document.getElementById('expense').value);
+            expenses.push(expense);
+            document.getElementById('budgetList').innerHTML += "<li>" + expense + "</li>";
+            calculateTotalBudget();
+        } 
+
+        function calculateTotalBudget() {
+            var income = parseFloat(document.getElementById('income').value);
+            var totalBudget = income - expenses.reduce((a, b) => a + b, 0);
+            document.getElementById('totalBudget').value = totalBudget;
+        }
+    </script>
+</body>
+</html>
